@@ -3,26 +3,39 @@ package dto;
 import java.util.List;
 
 public class Like implements Identifiable {
-    private int id;
-    private List<Integer> likedUsersIds;
+    private int userId;
+    private int likedUserId;
 
-    public Like(int userId) {
-        this.id = userId;
+    public Like(int likedUserId) {
+        this.likedUserId = likedUserId;
     }
 
-    public int getId() {
-        return id;
+    public Like(int userId, int likedUserId) {
+        this.userId = userId;
+        this.likedUserId = likedUserId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Like{" +
+                "userId=" + userId +
+                ", likedUserId=" + likedUserId +
+                '}';
     }
 
-    public List<Integer> getLikedUsersIds() {
-        return likedUsersIds;
+    public int getLikedUserId() {
+        return likedUserId;
     }
 
-    public void setLikedUsersIds(List<Integer> likedUsersIds) {
-        this.likedUsersIds = likedUsersIds;
+    public void setLikedUserId(int likedUserId) {
+        this.likedUserId = likedUserId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

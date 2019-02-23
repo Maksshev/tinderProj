@@ -17,7 +17,7 @@ public class Message implements Identifiable {
         this.time = time;
     }
 
-    public int getId() {
+    public int getUserId() {
         return id;
     }
 

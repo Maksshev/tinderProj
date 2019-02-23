@@ -1,8 +1,13 @@
 package dao;
 
 import dto.Like;
+import dto.User;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaoLikesSql implements Dao<Like> {
@@ -16,11 +21,20 @@ public class DaoLikesSql implements Dao<Like> {
     }
 
     public void add(Like item) {
-        //todo: implement adding a like
+        String sql = "INSERT INTO tinderam_likes(userId,liked) VALUES (?,?)";
+
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
+            stm.setInt(2, item.getLikedUserId());
+            stm.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void remove(int id) {
-        //todo: implement removing a like
+        throw new IllegalStateException("Method is not supplied by this implementation");
     }
 
     public Like get(int id) {
@@ -28,7 +42,22 @@ public class DaoLikesSql implements Dao<Like> {
     }
 
     public List<Like> getAll() {
-        //todo: implement getting all likes
-        return null;
+        List<Like> likes = new ArrayList<>();
+        String sql = "SELECT * FROM tinderam_likes";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rSet = stm.executeQuery();
+
+            while (rSet.next()) {
+                int userId = rSet.getInt("userId");
+                int likedUserId = rSet.getInt("liked");
+                Like like = new Like(userId,likedUserId);
+                likes.add(like);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return likes;
     }
 }
