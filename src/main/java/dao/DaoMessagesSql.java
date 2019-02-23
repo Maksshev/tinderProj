@@ -1,35 +1,81 @@
 package dao;
 
 import dto.Message;
+import dto.MessageFlag;
 
-import java.sql.Connection;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaoMessagesSql implements Dao<Message> {
 
     private Connection connection;
-    private int userId;
+    private int senderId;
 
-    public DaoMessagesSql(Connection connection, int userId) {
+
+    public DaoMessagesSql(Connection connection, int senderId) {
         this.connection = connection;
-        this.userId = userId;
+        this.senderId = senderId;
     }
 
-    public void add(Message item) {
-        //todo: implement sending message
+    public DaoMessagesSql(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void add(Message message) {
+        try {
+            String sql = "INSERT INTO tinderam_messages(senderId, receiverId, text) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, message.getSenderId());
+            preparedStatement.setInt(2, message.getReceiverId());
+            preparedStatement.setString(3, message.getText());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Something went wrong");
+        }
     }
 
     public void remove(int id) {
         throw new IllegalStateException("Method is not supplied by this implementation");
     }
 
-    public Message get(int id) {
-        //todo: implement getting message by id
-        return null;
+    public Message get(int messageId) {
+        try {
+            String sql = "SELECT * FROM tinderam_messages WHERE messageId = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, messageId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("text"), resultSet.getTimestamp("time"));
+            }
+            return null;
+
+        } catch (SQLException e) {
+            throw new IllegalStateException("Something went wrong");
+        }
     }
 
     public List<Message> getAll() {
-        //todo: implement gettind all messages by user id
-        return null;
+        try {
+            String sql = "SELECT * FROM tinderam_messages WHERE senderId = ? OR receiverId = ? ORDER BY time";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, senderId);
+            statement.setInt(2, senderId);
+            ResultSet resultSet = statement.executeQuery();
+            List<Message> resultingMessagesList = new ArrayList<Message>();
+            while (resultSet.next()) {
+                MessageFlag messageFlag = resultSet.getInt("receiverId") == senderId ? MessageFlag.RECIEVED : MessageFlag.SENT;
+                resultingMessagesList.add(new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("text"), messageFlag, resultSet.getTimestamp("time")));
+            }
+
+            if (resultingMessagesList.size() > 0) {
+                return resultingMessagesList;
+            } else {
+                throw new IllegalStateException("Something went wrong");
+            }
+
+        } catch (SQLException e) {
+            throw new IllegalStateException("Something went wrong");
+        }
     }
 }
