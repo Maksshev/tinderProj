@@ -8,6 +8,7 @@ public class Message implements Identifiable {
     private int receiverId;
     private String text;
     private Date time;
+    private MessageFlag sentOrReceived;
 
     public Message(int id, int senderId, int receiverId, String text, Date time) {
         this.id = id;
@@ -15,6 +16,20 @@ public class Message implements Identifiable {
         this.receiverId = receiverId;
         this.text = text;
         this.time = time;
+    }
+
+    public Message(int id, int senderId, int receiverId, String text, MessageFlag sentOrReceived, Date time) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.text = text;
+        this.sentOrReceived = sentOrReceived;
+        this.time = time;
+    }
+
+    public Message(int senderId, int receiverId, String text) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.text = text;
     }
 
     public int getId() {
@@ -55,5 +70,17 @@ public class Message implements Identifiable {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", senderId=" + senderId +
+                ", receiverId=" + receiverId +
+                ", text='" + text + '\'' +
+                ", time=" + time +
+                ", sentOrReceived=" + sentOrReceived +
+                '}';
     }
 }
