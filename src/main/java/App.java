@@ -1,42 +1,39 @@
-import dao.Dao;
-import dao.DaoLikesSql;
-import dao.DaoUsersSql;
 import db.DbConnection;
-import dto.Like;
-import dto.User;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import servlets.LikesServlet;
 import servlets.LoginServlet;
 import servlets.MainServlet;
+import servlets.MessagesServlet;
+
+import java.sql.Connection;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
 
-        Dao<User> userDao = new DaoUsersSql(new DbConnection().connection());
-        User user = new User("test","test","test","test");
+        Connection connection = new DbConnection().connection();
 
-        Dao<Like> likeDao = new DaoLikesSql(1,new DbConnection().connection());
-
-//        Like like2 = new Like(3);
-//        likeDao.add(like2);
-
-//        likeDao.getAll()
-//                .stream()
-//                .forEach(System.out::println);
 
         ServletContextHandler handler = new ServletContextHandler();
 
         handler.addServlet(new ServletHolder(new MainServlet()),"/");
         handler.addServlet(new ServletHolder(new LoginServlet()),"/login");
-
-//        System.out.println(userDao.get(1));
-//        System.out.println(userDao.get(2));
-//        System.out.println(userDao.get(3));
+        handler.addServlet(new ServletHolder(new LikesServlet(connection)), "/liked");
+        handler.addServlet(new ServletHolder(new MessagesServlet(connection)), "/message");
 
 
-        Server server = new Server(80);
+        HandlerCollection handlerCollection = new HandlerCollection();
+
+        handlerCollection.setHandlers(new Handler[] {handler});
+
+
+        Server server = new Server(4000);
+
+        server.setHandler(handlerCollection);
 
         server.start();
         server.join();

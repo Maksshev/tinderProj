@@ -43,9 +43,10 @@ public class DaoLikesSql implements Dao<Like> {
 
     public List<Like> getAll() {
         List<Like> likes = new ArrayList<>();
-        String sql = "SELECT * FROM tinderam_likes";
+        String sql = "SELECT * FROM tinderam_likes WHERE userId = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
             ResultSet rSet = stm.executeQuery();
 
             while (rSet.next()) {

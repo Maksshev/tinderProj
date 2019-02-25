@@ -31,11 +31,12 @@ public class Freemarker {
         this("./src/main/resources/templates");
     }
 
-    public void render(final String templateFile, final Map<String, Object> data, final HttpServletResponse resp) throws IOException {
+    public void render(final String templateFile, final Map<String, Object> data, final HttpServletResponse resp) {
         try {
             resp.setCharacterEncoding(String.valueOf(StandardCharsets.UTF_8));
             config.getTemplate(templateFile).process(data, resp.getWriter());
-        } catch (TemplateException e) {
+        } catch (TemplateException | IOException e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("smth went wrong", e);
         }
     }

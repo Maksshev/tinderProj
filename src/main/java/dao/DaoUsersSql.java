@@ -48,7 +48,7 @@ public class DaoUsersSql implements Dao<User> {
                 String name = rSet.getString("name");
                 String surname = rSet.getString("surname");
                 String login = rSet.getString("login");
-                String imgUrl = rSet.getString("imgUrl");
+                String imgUrl = rSet.getString("imgUrl") == null ? "" : rSet.getString("imgUrl");
                 user = new User(id,login,name,surname,imgUrl);
             }
 

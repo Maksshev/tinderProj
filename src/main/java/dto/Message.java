@@ -6,9 +6,9 @@ public class Message implements Identifiable {
     private int id;
     private int senderId;
     private int receiverId;
-    private String text;
+    private java.lang.String text;
     private Date time;
-    private MessageFlag sentOrReceived;
+    private String status;
 
     public Message(int id, int senderId, int receiverId, String text, Date time) {
         this.id = id;
@@ -18,11 +18,11 @@ public class Message implements Identifiable {
         this.time = time;
     }
 
-    public Message(int id, int senderId, int receiverId, String text, MessageFlag sentOrReceived, Date time) {
+    public Message(int id, int senderId, int receiverId, String text, String status, Date time) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.text = text;
-        this.sentOrReceived = sentOrReceived;
+        this.status = status;
         this.time = time;
     }
 
@@ -72,15 +72,23 @@ public class Message implements Identifiable {
         this.time = time;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "Message{" +
                 "id=" + id +
                 ", senderId=" + senderId +
                 ", receiverId=" + receiverId +
                 ", text='" + text + '\'' +
                 ", time=" + time +
-                ", sentOrReceived=" + sentOrReceived +
+                ", status=" + status +
                 '}';
     }
 }

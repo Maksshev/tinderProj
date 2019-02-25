@@ -11,11 +11,11 @@ public class UsersService {
     }
 
     public boolean userExists(User user){
-        return userDao.get(user.getUserId()) != null;
+        return userDao.get(user.getId()) != null;
     }
 
     public boolean checkPassword(User user){
-        return userDao.get(user.getUserId()).getPassword().equals(user.getPassword());
+        return userDao.get(user.getId()).getPassword().equals(user.getPassword());
     }
 
     public void add(User item) {

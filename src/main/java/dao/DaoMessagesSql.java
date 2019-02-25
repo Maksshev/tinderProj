@@ -1,7 +1,6 @@
 package dao;
 
 import dto.Message;
-import dto.MessageFlag;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class DaoMessagesSql implements Dao<Message> {
 
     public void add(Message message) {
         try {
-            String sql = "INSERT INTO tinderam_messages(senderId, receiverId, text) VALUES (?, ?, ?)";
+            java.lang.String sql = "INSERT INTO tinderam_messages(senderId, receiverId, text) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, message.getSenderId());
             preparedStatement.setInt(2, message.getReceiverId());
@@ -41,7 +40,7 @@ public class DaoMessagesSql implements Dao<Message> {
 
     public Message get(int messageId) {
         try {
-            String sql = "SELECT * FROM tinderam_messages WHERE messageId = ?";
+            java.lang.String sql = "SELECT * FROM tinderam_messages WHERE messageId = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, messageId);
             ResultSet resultSet = statement.executeQuery();
@@ -57,15 +56,15 @@ public class DaoMessagesSql implements Dao<Message> {
 
     public List<Message> getAll() {
         try {
-            String sql = "SELECT * FROM tinderam_messages WHERE senderId = ? OR receiverId = ? ORDER BY time";
+            java.lang.String sql = "SELECT * FROM tinderam_messages WHERE senderId = ? OR receiverId = ? ORDER BY time";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, senderId);
             statement.setInt(2, senderId);
             ResultSet resultSet = statement.executeQuery();
             List<Message> resultingMessagesList = new ArrayList<Message>();
             while (resultSet.next()) {
-                MessageFlag messageFlag = resultSet.getInt("receiverId") == senderId ? MessageFlag.RECIEVED : MessageFlag.SENT;
-                resultingMessagesList.add(new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("text"), messageFlag, resultSet.getTimestamp("time")));
+                String string = resultSet.getInt("receiverId") == senderId ? "received" : "sent";
+                resultingMessagesList.add(new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("text"), string, resultSet.getTimestamp("time")));
             }
 
             if (resultingMessagesList.size() > 0) {
