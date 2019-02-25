@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,23 +9,30 @@
 
     <title>Signin Template for Bootstrap</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <#include "css/bootstrap.min.css">
+    <#include "css/style.css">
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="text-center">
 
-    <form class="form-signin">
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" userId="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <form class="form" action=${rout} method="post">
+        <h1 class="h3 mb-3 font-weight-normal">${message}</h1>
+            <#list fields as field>
+                <label for=${field} class="sr-only">${field}</label>
+                <input class="form-control" type="text" name=${field} placeholder=${field}>
+            </#list>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="Password" userId="inputPassword" class="form-control" placeholder="Password">
+        <input class="btn btn-lg btn-primary btn-block"  class="submit" type="submit">
+        <div class="or">or</div>
+        <#if rout = "/login">
+        <a href="/reg">Sign up</a>
+        <#else>
+        <a href="/login">Sign in</a>
+        </#if>
         <p class="mt-5 mb-3 text-muted">&copy; Tinder 2018</p>
     </form>
+
 </body>
 </html>

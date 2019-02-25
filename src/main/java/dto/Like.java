@@ -1,8 +1,6 @@
 package dto;
 
-import java.util.List;
-
-public class Like implements Identifiable {
+public class Like{
     private int userId;
     private int likedUserId;
 

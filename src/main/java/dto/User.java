@@ -8,6 +8,11 @@ public class User implements Identifiable {
     private String surname;
     private String imgUrl;
 
+    public User(String login, String password){
+        this.login = login;
+        this.password = password;
+    }
+
     public User(int id, String login, String name, String surname, String imgUrl){
         this.id = id;
         this.login = login;
@@ -17,8 +22,7 @@ public class User implements Identifiable {
     }
 
     public User(String login, String password, String name, String surname) {
-        this.login = login;
-        this.password = password;
+        this(login, password);
         this.name = name;
         this.surname = surname;
     }
@@ -47,8 +51,8 @@ public class User implements Identifiable {
     }
 
     @Override
-    public int getUserId() {
-        return 0;
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {

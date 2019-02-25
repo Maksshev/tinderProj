@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class LoginServlet extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
     private CookiesService cookiesService;
     private final Freemarker f = new Freemarker();
     private UsersService usersService;
     private final Connection connection;
 
-    public LoginServlet(Connection connection) {
+    public RegistrationServlet(Connection connection) {
         this.connection = connection;
         this.usersService = new UsersService(new DaoUsersSql(connection));
     }
@@ -34,13 +34,18 @@ public class LoginServlet extends HttpServlet {
         HashMap<String, Object> data = new HashMap<>();
 
         List<String> fields = new ArrayList<>();
+
+        fields.add("Name");
+        fields.add("Surname");
+        fields.add("Image");
         fields.add("Email");
 
         data.put("fields", fields);
-        data.put("message", "Please sign in");
-        data.put("rout", "/login");
+        data.put("message", "Please sign up");
+        data.put("rout", "/reg");
 
         f.render("form.ftl", data, resp);
+
     }
 
     @Override
@@ -48,10 +53,14 @@ public class LoginServlet extends HttpServlet {
         ParameterFromRequest pfr = new ParameterFromRequest(req);
 
         cookiesService = new CookiesService(req,resp);
+        String name = pfr.getStr("Name");
+        String surname = pfr.getStr("Surname");
+        String image = pfr.getStr("Image");
         String login = pfr.getStr("Email");
         String password = pfr.getStr("Password");
 
-        User user = new User(login,password);
+        User user = new User(login,password,name,surname,image);
+        usersService.add(user);
 
         cookiesService.addCookie(usersService.getUserId(user));
 
