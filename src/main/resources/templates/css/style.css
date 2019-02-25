@@ -1,4 +1,10 @@
 <style type="text/css">
+
+.container{
+    height: 100vh;
+    padding: 20px 0;
+}
+
 html,
 body {
   height: 100%;
@@ -400,6 +406,7 @@ input:focus{
 }
 .msg-box{
   margin-top: 35px;
+  background: #fff;
 }
 .msg-box i{
   color: #404040;

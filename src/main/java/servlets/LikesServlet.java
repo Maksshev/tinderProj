@@ -19,6 +19,7 @@ public class LikesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        todo: dont hardcode userId
         int userId = 3;
         LikesService likesService = new LikesService(userId, connection, req, resp);
         likesService.generateLikedPage();

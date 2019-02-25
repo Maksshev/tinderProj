@@ -20,7 +20,7 @@ public class MessagesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //todo: render messages on get
+        //        todo: dont hardcode userId
         int userId = 3;
         ParameterFromRequest pfr = new ParameterFromRequest(req);
         int counterpartId = pfr.getInt("user");
@@ -31,7 +31,7 @@ public class MessagesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //todo: rerender with new message
+        //        todo: dont hardcode userId
         int userId = 3;
         ParameterFromRequest pfr = new ParameterFromRequest(req);
         int counterpartId = pfr.getInt("user");

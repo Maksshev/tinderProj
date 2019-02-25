@@ -33,7 +33,7 @@
                                 <td width="10">
                                     <div class="avatar-img">
                                         <img alt="no img" class="img-circle"
-                                             src="${user.img}"/>  
+                                             src="${user.imgUrl}"/>  
                                     </div>
 
                                 </td>
@@ -103,7 +103,7 @@
                             <#else>
                         <li class="receive-msg float-left mb-2">
                             <div class="sender-img">
-                                <img src="${counterpart.img}" alt="photo" class="float-left">
+                                <img src="${counterpart.imgUrl}" alt="photo" class="float-left">
                             </div>
                             <div class="receive-msg-desc float-left ml-2">
                                 <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">

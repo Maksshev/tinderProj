@@ -18,7 +18,6 @@ import servlets.RegistrationServlet;
 import servlets.UsersServlet;
 
 import javax.servlet.DispatcherType;
-import java.sql.Connection;
 import java.util.EnumSet;
 
 public class App {
@@ -30,7 +29,7 @@ public class App {
         ServletContextHandler handler = new ServletContextHandler();
 
         handler.addServlet(new ServletHolder(new MainServlet()),"/");
-        handler.addServlet(new ServletHolder(new LoginServlet()),"/login");
+        handler.addServlet(new ServletHolder(new LoginServlet(connection)),"/login");
         handler.addServlet(new ServletHolder(new LikesServlet(connection)), "/liked");
         handler.addServlet(new ServletHolder(new MessagesServlet(connection)), "/message");
 

@@ -7,7 +7,6 @@ public class User implements Identifiable {
     private String name;
     private String surname;
     private String imgUrl;
-    private String img;
 
     public User(String login, String password){
         this.login = login;
@@ -38,26 +37,6 @@ public class User implements Identifiable {
         this.id = id;
         this.imgUrl = imgUrl;
     }
-
-    public User(int id, String login, String name, String surname, String img){
-        this.id = id;
-        this.login = login;
-        this.name = name;
-        this.surname = surname;
-        this.img = img;
-    }
-
-    public User(String login, String password, String name, String surname, String img) {
-        this(login, password, name, surname);
-        this.img = img;
-    }
-
-    public User(int id, String login, String password, String name, String surname, String img) {
-        this(login, password, name, surname);
-        this.id = id;
-        this.img = img;
-    }
-
 
 
     @Override
@@ -118,14 +97,6 @@ public class User implements Identifiable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
 
