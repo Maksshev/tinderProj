@@ -6,7 +6,38 @@ public class User implements Identifiable {
     private String password;
     private String name;
     private String surname;
+    private String imgUrl;
     private String img;
+
+    public User(String login, String password){
+        this.login = login;
+        this.password = password;
+    }
+
+    public User(int id, String login, String name, String surname, String imgUrl){
+        this.id = id;
+        this.login = login;
+        this.name = name;
+        this.surname = surname;
+        this.imgUrl = imgUrl;
+    }
+
+    public User(String login, String password, String name, String surname) {
+        this(login, password);
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public User(String login, String password, String name, String surname, String imgUrl) {
+        this(login, password, name, surname);
+        this.imgUrl = imgUrl;
+    }
+
+    public User(int id, String login, String password, String name, String surname, String imgUrl) {
+        this(login, password, name, surname);
+        this.id = id;
+        this.imgUrl = imgUrl;
+    }
 
     public User(int id, String login, String name, String surname, String img){
         this.id = id;
@@ -14,13 +45,6 @@ public class User implements Identifiable {
         this.name = name;
         this.surname = surname;
         this.img = img;
-    }
-
-    public User(String login, String password, String name, String surname) {
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
     }
 
     public User(String login, String password, String name, String surname, String img) {
@@ -35,6 +59,7 @@ public class User implements Identifiable {
     }
 
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -42,7 +67,7 @@ public class User implements Identifiable {
                 ", login='" + login + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", img='" + img + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
                 '}';
     }
 
@@ -87,6 +112,14 @@ public class User implements Identifiable {
         this.surname = surname;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public String getImg() {
         return img;
     }
@@ -94,6 +127,7 @@ public class User implements Identifiable {
     public void setImg(String img) {
         this.img = img;
     }
+
 
 
 }

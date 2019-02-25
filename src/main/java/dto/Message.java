@@ -32,6 +32,7 @@ public class Message implements Identifiable {
         this.text = text;
     }
 
+    @Override
     public int getId() {
         return id;
     }

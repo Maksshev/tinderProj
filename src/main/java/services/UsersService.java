@@ -1,29 +1,30 @@
 package services;
 
-import dao.Dao;
+import dao.DaoUsersSql;
 import dto.User;
 
 public class UsersService {
-    private Dao<User> userDao;
+    private DaoUsersSql userDao;
 
-    public UsersService(Dao<User> userDao) {
+    public UsersService(DaoUsersSql userDao) {
         this.userDao = userDao;
     }
 
-    public boolean userExists(User user){
-        return userDao.get(user.getId()) != null;
+    public int getUserId(User user){
+        return userDao.getByLogin(user).getId();
     }
 
-    public boolean checkPassword(User user){
-        return userDao.get(user.getId()).getPassword().equals(user.getPassword());
+    public boolean checkUserByLogin(User user){
+        return userDao.getByLogin(user) != null;
+    }
+
+    public boolean checkUser(User user){
+        User res = userDao.getByLogin(user);
+        return res != null && res.getPassword().equals(user.getPassword());
     }
 
     public void add(User item) {
         userDao.add(item);
-    }
-
-    public User get(int id) {
-        return userDao.get(id);
     }
 
 }

@@ -21,6 +21,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import dao.DaoLikesSql;
+import dao.DaoUsersSql;
+import dto.Like;
+import dto.User;
+
 public class LikesService {
 
     private int userId;
@@ -31,6 +36,10 @@ public class LikesService {
     private HttpServletResponse response;
     private Freemarker freemarker = new Freemarker();
 
+    public LikesService(DaoLikesSql likeDao, DaoUsersSql daoUsers) {
+        this.likeDao = likeDao;
+        this.daoUsers = daoUsers;
+    }
 
     public LikesService(int userId, Connection connection, HttpServletRequest request, HttpServletResponse response) {
         this.userId = userId;
@@ -51,6 +60,40 @@ public class LikesService {
 
     private List<User> getLikedUsersList(List<Like> likes) {
         return likes.stream().map(e -> userDao.get(e.getLikedUserId())).collect(Collectors.toList());
+    }
+
+    private DaoLikesSql likeDao;
+    private DaoUsersSql daoUsers;
+
+    public LikesService(DaoLikesSql likeDao, DaoUsersSql daoUsers) {
+        this.likeDao = likeDao;
+        this.daoUsers = daoUsers;
+    }
+
+    public void removeLike(Like like){
+        if(likeDao.get(like.getLikedUserId()) != null){
+            likeDao.remove(like.getLikedUserId());
+        }
+    }
+
+    public void addLike(Like like){
+        if(likeDao.get(like.getLikedUserId()) == null){
+            likeDao.add(like);
+        }
+    }
+
+    public void addCheckedStatus(int dislikedUserId){
+        likeDao.addCheckedStatus(dislikedUserId);
+    }
+
+    public User getUserToShow(int activeUserId){
+        User userToShow = daoUsers.getUserToShow(activeUserId);
+        if(userToShow == null){
+            likeDao.clearCheckedTable();
+            return getUserToShow(activeUserId);
+        }
+        return userToShow;
+
     }
 
 }
