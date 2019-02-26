@@ -1,1 +1,2 @@
-web: java -cp target/classes/:target/dependency/* com.wedevol.xmpp.EntryPoint
+web: java -jar target/tinderProj-1.0-SNAPSHOT-shaded.jar
+
