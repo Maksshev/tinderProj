@@ -67,11 +67,8 @@ public class DaoMessagesSql implements Dao<Message> {
                 resultingMessagesList.add(new Message(resultSet.getInt("messageId"), resultSet.getInt("senderId"), resultSet.getInt("receiverId"), resultSet.getString("text"), string, resultSet.getTimestamp("time")));
             }
 
-            if (resultingMessagesList.size() > 0) {
-                return resultingMessagesList;
-            } else {
-                throw new IllegalStateException("Something went wrong");
-            }
+            return resultingMessagesList;
+
 
         } catch (SQLException e) {
             throw new IllegalStateException("Something went wrong");
