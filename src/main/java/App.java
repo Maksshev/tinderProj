@@ -8,14 +8,9 @@ import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import servlets.LikesServlet;
-import servlets.LoginServlet;
-import servlets.MainServlet;
-import servlets.MessagesServlet;
+import servlets.*;
 
 import java.sql.Connection;
-import servlets.RegistrationServlet;
-import servlets.UsersServlet;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
@@ -36,6 +31,7 @@ public class App {
         handler.addServlet(new ServletHolder(new LoginServlet(connection)),"/login/*");
         handler.addServlet(new ServletHolder(new RegistrationServlet(connection)),"/reg/*");
         handler.addServlet(new ServletHolder(new UsersServlet(connection)),"/users/*");
+        handler.addServlet(new ServletHolder(new LogoutServlet()),"/logout/*");
 
         handler.addFilter(LoginStatusFilter.class,"/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
         HandlerCollection handlerCollection = new HandlerCollection();

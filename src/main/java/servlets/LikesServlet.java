@@ -1,5 +1,6 @@
 package servlets;
 
+import services.CookiesService;
 import services.LikesService;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 public class LikesServlet extends HttpServlet {
 
     private Connection connection;
+    private CookiesService cookiesService;
 
     public LikesServlet(Connection connection) {
         this.connection = connection;
@@ -19,8 +21,8 @@ public class LikesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        todo: dont hardcode userId
-        int userId = 3;
+        cookiesService = new CookiesService(req,resp);
+        int userId = Integer.parseInt(cookiesService.getCookie().getValue());
         LikesService likesService = new LikesService(userId, connection, req, resp);
         likesService.generateLikedPage();
     }

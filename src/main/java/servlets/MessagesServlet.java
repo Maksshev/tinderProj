@@ -1,5 +1,6 @@
 package servlets;
 
+import services.CookiesService;
 import services.MessagesService;
 import utils.ParameterFromRequest;
 
@@ -13,6 +14,7 @@ import java.sql.Connection;
 public class MessagesServlet extends HttpServlet {
 
     private Connection connection;
+    private CookiesService cookiesService;
 
     public MessagesServlet(Connection connection) {
         this.connection = connection;
@@ -20,8 +22,8 @@ public class MessagesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //        todo: dont hardcode userId
-        int userId = 3;
+        cookiesService = new CookiesService(req, resp);
+        int userId = Integer.parseInt(cookiesService.getCookie().getValue());
         ParameterFromRequest pfr = new ParameterFromRequest(req);
         int counterpartId = pfr.getInt("user");
 
@@ -31,13 +33,20 @@ public class MessagesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //        todo: dont hardcode userId
-        int userId = 3;
+        cookiesService = new CookiesService(req, resp);
+        int userId = Integer.parseInt(cookiesService.getCookie().getValue());
         ParameterFromRequest pfr = new ParameterFromRequest(req);
         int counterpartId = pfr.getInt("user");
-        String text = pfr.getStr("text");
+
         MessagesService messagesService = new MessagesService(userId, counterpartId, connection, req, resp);
-        messagesService.sendMessage(text);
-        messagesService.generateLikedPage();
+        try {
+            String text = pfr.getStr("text");
+            messagesService.sendMessage(text);
+        } catch (IllegalStateException e) {
+            System.out.println("empty message");
+        } finally {
+            messagesService.generateLikedPage();
+        }
+
     }
 }

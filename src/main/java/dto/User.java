@@ -99,6 +99,4 @@ public class User implements Identifiable {
         this.imgUrl = imgUrl;
     }
 
-
-
 }

@@ -18,7 +18,7 @@
 <body>
 
 <div class="container">
-    <div class="row">
+    <div class="row" style="padding:20px 0">
         <div class="col-8 offset-2">
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
@@ -56,6 +56,10 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <a href="/users" role="button" class="btn btn-primary" style="display: block;width:130px;">Find love</a>
+                <a href="/logout" role="button" class="btn btn-danger" style="display: block;width:130px;">Log out</a>
             </div>
         </div>
     </div>
@@ -134,5 +138,6 @@
     </div>
 </div>
 </#if>
+
 </body>
 </html>
