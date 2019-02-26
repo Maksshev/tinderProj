@@ -40,12 +40,12 @@ public class App {
         handler.addFilter(new FilterHolder(new LoginFilter(connection)),"/login/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
         handlerCollection.setHandlers(new Handler[] {handler});
 
-        Server server = new Server(8080);
+        Server server = new Server(5000);
 
         server.setHandler(handler);
 
         server.start();
-//        server.join();
+        server.join();
 
     }
 }
