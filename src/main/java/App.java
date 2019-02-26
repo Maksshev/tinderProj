@@ -40,7 +40,7 @@ public class App {
         handler.addFilter(new FilterHolder(new LoginFilter(connection)),"/login/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
         handlerCollection.setHandlers(new Handler[] {handler});
 
-        Server server = new Server(5000);
+        Server server = new Server(8080);
 
         server.setHandler(handler);
 
