@@ -21,6 +21,11 @@ public class App {
 
         Connection connection = new DbConnection().connection();
 
+        String webPort = System.getenv("PORT");
+        if(webPort == null || webPort.isEmpty()) {
+            webPort = "8080";
+        }
+
         ServletContextHandler handler = new ServletContextHandler();
 
         handler.addServlet(new ServletHolder(new MainServlet()),"/");
@@ -40,7 +45,7 @@ public class App {
         handler.addFilter(new FilterHolder(new LoginFilter(connection)),"/login/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
         handlerCollection.setHandlers(new Handler[] {handler});
 
-        Server server = new Server(80);
+        Server server = new Server(Integer.parseInt(webPort));
 
         server.setHandler(handler);
 
