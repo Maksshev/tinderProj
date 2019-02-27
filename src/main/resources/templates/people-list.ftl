@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="img/favicon.ico">
 
-    <title>People list</title>
+    <title>Liked list</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
@@ -78,7 +78,7 @@
                     </div>
                         <#--cross-->
                     <div class="col-md-6 options text-right pr-0">
-                        <i onclick="document.getElementById('1').classList.toggle('hide');
+                        <i id="cross" onclick="document.getElementById('1').classList.toggle('hide');
 " class="fa fa-times hover text-center pt-1"></i>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
         </div>
     </div>
 </div>
+<script src="js/messages.js"></script>
 </#if>
-
 </body>
 </html>

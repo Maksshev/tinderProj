@@ -4,11 +4,14 @@ import filters.LoginFilter;
 import filters.LoginStatusFilter;
 import filters.RegistrationFilter;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlets.*;
+import utils.ResourceHandlerGenerator;
 
 import java.sql.Connection;
 
@@ -28,6 +31,10 @@ public class App {
 
         ServletContextHandler handler = new ServletContextHandler();
 
+        ResourceHandlerGenerator rhg = new ResourceHandlerGenerator();
+
+        ContextHandler jsHandler = rhg.generateResourceHandler("src/main/resources/templates/js", "/js");
+
         handler.addServlet(new ServletHolder(new MainServlet()),"/");
         handler.addServlet(new ServletHolder(new LoginServlet(connection)),"/login");
         handler.addServlet(new ServletHolder(new LikesServlet(connection)), "/liked");
@@ -43,11 +50,11 @@ public class App {
 
         handler.addFilter(new FilterHolder(new RegistrationFilter(connection)),"/reg/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
         handler.addFilter(new FilterHolder(new LoginFilter(connection)),"/login/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
-        handlerCollection.setHandlers(new Handler[] {handler});
+        handlerCollection.setHandlers(new Handler[] {jsHandler, handler});
 
         Server server = new Server(Integer.parseInt(webPort));
 
-        server.setHandler(handler);
+        server.setHandler(handlerCollection);
 
         server.start();
         server.join();
