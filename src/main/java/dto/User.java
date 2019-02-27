@@ -8,15 +8,49 @@ public class User implements Identifiable {
     private String surname;
     private String imgUrl;
 
-    public User(int id, String login, String password, String name, String surname, String imgUrl) {
-        this.id = id;
+    public User(String login, String password){
         this.login = login;
         this.password = password;
+    }
+
+    public User(int id, String login, String name, String surname, String imgUrl){
+        this.id = id;
+        this.login = login;
         this.name = name;
         this.surname = surname;
         this.imgUrl = imgUrl;
     }
 
+    public User(String login, String password, String name, String surname) {
+        this(login, password);
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public User(String login, String password, String name, String surname, String imgUrl) {
+        this(login, password, name, surname);
+        this.imgUrl = imgUrl;
+    }
+
+    public User(int id, String login, String password, String name, String surname, String imgUrl) {
+        this(login, password, name, surname);
+        this.id = id;
+        this.imgUrl = imgUrl;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                '}';
+    }
+
+    @Override
     public int getId() {
         return id;
     }
@@ -64,4 +98,5 @@ public class User implements Identifiable {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
 }
