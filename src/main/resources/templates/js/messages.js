@@ -4,10 +4,6 @@ message.onmousedown = function(event) {
 
     if (event.target !== document.getElementById("cross") && event.target !== document.getElementById("send")) {
 
-        //todo: delete console logs
-
-        console.log(event.target)
-        console.log(document.getElementById("cross"))
 
         let shiftX = event.clientX - message.getBoundingClientRect().left;
         let shiftY = event.clientY - message.getBoundingClientRect().top;
