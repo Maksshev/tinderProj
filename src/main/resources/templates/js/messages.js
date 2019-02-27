@@ -2,10 +2,7 @@ let message = document.getElementById('1');
 
 message.onmousedown = function(event) {
 
-    if (event.target !== document.getElementById("cross")) {
-
-        console.log(event.target)
-        console.log(document.getElementById("cross"))
+    if (event.target !== document.getElementById("cross") && event.target !== document.getElementById("send")) {
 
         let shiftX = event.clientX - message.getBoundingClientRect().left;
         let shiftY = event.clientY - message.getBoundingClientRect().top;
