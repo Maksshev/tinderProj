@@ -25,6 +25,7 @@ public class App {
         Connection connection = new DbConnection().connection();
 
         String webPort = System.getenv("PORT");
+
         if(webPort == null || webPort.isEmpty()) {
             webPort = "8080";
         }
