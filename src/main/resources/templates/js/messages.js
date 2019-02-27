@@ -2,7 +2,9 @@ let message = document.getElementById('1');
 
 message.onmousedown = function(event) {
 
-    if (event.target !== document.getElementById("cross")) {
+    if (event.target !== document.getElementById("cross") && event.target !== document.getElementById("send")) {
+
+        //todo: delete console logs
 
         console.log(event.target)
         console.log(document.getElementById("cross"))
