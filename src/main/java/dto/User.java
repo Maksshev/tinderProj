@@ -7,6 +7,7 @@ public class User implements Identifiable {
     private String name;
     private String surname;
     private String imgUrl;
+    private String regUid;
 
     public User(String login, String password){
         this.login = login;
@@ -27,9 +28,10 @@ public class User implements Identifiable {
         this.surname = surname;
     }
 
-    public User(String login, String password, String name, String surname, String imgUrl) {
+    public User(String login, String password, String name, String surname, String imgUrl, String regUid) {
         this(login, password, name, surname);
         this.imgUrl = imgUrl;
+        this.regUid = regUid;
     }
 
     public User(int id, String login, String password, String name, String surname, String imgUrl) {
