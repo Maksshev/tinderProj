@@ -67,6 +67,29 @@
             <artifactId>simple-java-mail</artifactId>
             <version>5.1.3</version>
         </dependency>
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-api -->
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-api</artifactId>
+            <version>9.4.15.v20190215</version>
+        </dependency>
+        <!-- To run websockets in embedded server -->
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server -->
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>9.4.15.v20190215</version>
+        </dependency>
     </dependencies>
 
 </project>

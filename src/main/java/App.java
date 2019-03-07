@@ -9,9 +9,11 @@ import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import services.MailService;
+import org.eclipse.jetty.websocket.server.WebSocketHandler;
+import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 import servlets.*;
 import utils.ResourceHandlerGenerator;
+import websocket.MessagesSocket;
 
 import java.sql.Connection;
 
@@ -40,6 +42,12 @@ public class App {
         handler.addServlet(new ServletHolder(new LoginServlet(connection)),"/login");
         handler.addServlet(new ServletHolder(new LikesServlet(connection)), "/liked");
         handler.addServlet(new ServletHolder(new MessagesServlet(connection)), "/message");
+
+        //socket
+
+        handler.addServlet(new ServletHolder("ws", MessagesSocketServlet.class), "/messages/*");
+        //socket
+
 
         handler.addServlet(new ServletHolder(new LoginServlet(connection)),"/login/*");
         handler.addServlet(new ServletHolder(new RegistrationServlet(connection)),"/reg/*");

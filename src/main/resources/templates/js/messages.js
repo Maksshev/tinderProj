@@ -2,7 +2,7 @@ let message = document.getElementById('1');
 
 message.onmousedown = function(event) {
 
-    if (event.target !== document.getElementById("cross") && event.target !== document.getElementById("send")) {
+    if (event.target !== document.getElementById("cross") && event.target !== document.getElementById("sendMessage")) {
 
 
         let shiftX = event.clientX - message.getBoundingClientRect().left;
@@ -37,6 +37,27 @@ message.onmousedown = function(event) {
 message.ondragstart = function() {
     return false;
 };
+
+
+//socket
+
+let socketConnect = document.getElementById("socketConnect");
+let sendButton = document.getElementById("sendMessage");
+let messageReceiverId = document.getElementById("messageReceiver").value;
+
+
+//todo: change before heroku
+
+// sendButton.addEventListener('click', () => {
+//     const socket = new WebSocket(`ws://localhost:8080/messages?to=${messageReceiverId}`)
+//     console.log("connected!!!!!!!!!!!!!!!")
+// })
+
+
+
+
+
+
 
 
 

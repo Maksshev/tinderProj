@@ -23,7 +23,7 @@
                 <input class="form-control" type="text" name=${field} placeholder=${field}>
             </#list>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="Password" userId="inputPassword" class="form-control" placeholder="Password">
+        <input type="password" name="Password" receiverId="inputPassword" class="form-control" placeholder="Password">
         <input class="btn btn-lg btn-primary btn-block"  class="submit" type="submit">
         <div class="or">or</div>
         <#if rout = "/login">
