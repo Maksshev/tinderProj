@@ -57,6 +57,7 @@ public class RegistrationFilter implements Filter {
                 if (usersService.checkUserByLogin(user)) {
                     throw new Exception("Such user exists");
                 }
+
                 chain.doFilter(request, response);
             } catch (Exception e) {
                 data.put("message", e.getMessage());

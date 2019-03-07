@@ -3,6 +3,8 @@ package servlets;
 import dao.DaoUsersSql;
 import dto.User;
 import services.CookiesService;
+import services.MailService;
+import services.StorageService;
 import services.UsersService;
 import utils.Freemarker;
 import utils.ParameterFromRequest;
@@ -11,7 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ public class RegistrationServlet extends HttpServlet {
     private final Freemarker f = new Freemarker();
     private UsersService usersService;
     private final Connection connection;
+    private final MailService mailService = new MailService();
 
     public RegistrationServlet(Connection connection) {
         this.connection = connection;
@@ -51,6 +54,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ParameterFromRequest pfr = new ParameterFromRequest(req);
+        StorageService storageService = new StorageService();
 
         cookiesService = new CookiesService(req,resp);
         String name = pfr.getStr("Name");
@@ -59,11 +63,11 @@ public class RegistrationServlet extends HttpServlet {
         String login = pfr.getStr("Email");
         String password = pfr.getStr("Password");
 
-        User user = new User(login,password,name,surname,image);
-        usersService.add(user);
+        User user = new User(login,password,name,surname,image, usersService.generateUid());
+        storageService.addUid(user);
+        mailService.sendTo(user);
 
-        cookiesService.addCookie(usersService.getUserId(user));
 
-        resp.sendRedirect("/users");
+        resp.sendRedirect("/verify");
     }
 }

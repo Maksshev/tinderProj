@@ -94,7 +94,7 @@
             <div class="chat-content">
                 <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
                     <ul class="p-0">
-                        <#--send message-->
+                        <#--sendTo message-->
                             <#list messageList as message>
                             <#if message.status == "sent">
                         <li class="send-msg float-right mb-2">

@@ -6,10 +6,10 @@ import filters.RegistrationFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import services.MailService;
 import servlets.*;
 import utils.ResourceHandlerGenerator;
 
@@ -45,6 +45,8 @@ public class App {
         handler.addServlet(new ServletHolder(new RegistrationServlet(connection)),"/reg/*");
         handler.addServlet(new ServletHolder(new UsersServlet(connection)),"/users/*");
         handler.addServlet(new ServletHolder(new LogoutServlet()),"/logout/*");
+        handler.addServlet(new ServletHolder(new VerifyEmailServlet()), "/verify");
+        handler.addServlet(new ServletHolder(new EmailVerificationServlet(connection)), "/verification");
 
         handler.addFilter(LoginStatusFilter.class,"/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
         HandlerCollection handlerCollection = new HandlerCollection();
@@ -56,6 +58,11 @@ public class App {
         Server server = new Server(Integer.parseInt(webPort));
 
         server.setHandler(handlerCollection);
+
+        //test
+
+
+        //test
 
         server.start();
         server.join();

@@ -3,6 +3,8 @@ package services;
 import dao.DaoUsersSql;
 import dto.User;
 
+import java.util.UUID;
+
 public class UsersService {
     private DaoUsersSql userDao;
 
@@ -25,6 +27,10 @@ public class UsersService {
 
     public void add(User item) {
         userDao.add(item);
+    }
+
+    public String generateUid() {
+        return UUID.randomUUID().toString().replace("-", "");
     }
 
 }

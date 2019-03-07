@@ -14,6 +14,10 @@ public class User implements Identifiable {
         this.password = password;
     }
 
+    public User(String regUid) {
+        this.regUid = regUid;
+    }
+
     public User(int id, String login, String name, String surname, String imgUrl){
         this.id = id;
         this.login = login;
@@ -28,10 +32,37 @@ public class User implements Identifiable {
         this.surname = surname;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!login.equals(user.login)) return false;
+        if (!password.equals(user.password)) return false;
+        if (!name.equals(user.name)) return false;
+        if (!surname.equals(user.surname)) return false;
+        if (!imgUrl.equals(user.imgUrl)) return false;
+        return regUid.equals(user.regUid);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = login.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + surname.hashCode();
+        result = 31 * result + imgUrl.hashCode();
+        result = 31 * result + regUid.hashCode();
+        return result;
+    }
+
     public User(String login, String password, String name, String surname, String imgUrl, String regUid) {
         this(login, password, name, surname);
         this.imgUrl = imgUrl;
         this.regUid = regUid;
+
     }
 
     public User(int id, String login, String password, String name, String surname, String imgUrl) {
@@ -46,9 +77,11 @@ public class User implements Identifiable {
         return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
+                ", regUid='" + regUid + '\'' +
                 '}';
     }
 
@@ -101,4 +134,11 @@ public class User implements Identifiable {
         this.imgUrl = imgUrl;
     }
 
+    public String getRegUid() {
+        return regUid;
+    }
+
+    public void setRegUid(String regUid) {
+        this.regUid = regUid;
+    }
 }

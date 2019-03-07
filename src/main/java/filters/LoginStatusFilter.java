@@ -25,7 +25,7 @@ public class LoginStatusFilter implements Filter {
 
         HttpServletResponse resp = (HttpServletResponse) response;
         cookiesService = new CookiesService(req, resp);
-        if(cookiesService.getCookie() == null && !req.getRequestURI().matches("(/login|/reg)")){
+        if(cookiesService.getCookie() == null && !req.getRequestURI().matches("(/login|/reg|/verify|/verification)")){
             resp.sendRedirect("/login");
         } else{
             chain.doFilter(request,response);
