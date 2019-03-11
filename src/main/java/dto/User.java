@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.Objects;
+
 public class User implements Identifiable {
     private int id;
     private String login;
@@ -7,7 +9,6 @@ public class User implements Identifiable {
     private String name;
     private String surname;
     private String imgUrl;
-    private String regUid;
 
     public User(String login, String password){
         this.login = login;
@@ -28,10 +29,9 @@ public class User implements Identifiable {
         this.surname = surname;
     }
 
-    public User(String login, String password, String name, String surname, String imgUrl, String regUid) {
+    public User(String login, String password, String name, String surname, String imgUrl) {
         this(login, password, name, surname);
         this.imgUrl = imgUrl;
-        this.regUid = regUid;
     }
 
     public User(int id, String login, String password, String name, String surname, String imgUrl) {
@@ -40,6 +40,18 @@ public class User implements Identifiable {
         this.imgUrl = imgUrl;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(login, user.login);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login);
+    }
 
     @Override
     public String toString() {
